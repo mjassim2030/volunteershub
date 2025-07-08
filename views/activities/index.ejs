@@ -54,7 +54,7 @@
                       <% const isEnrolled=activity.enrolled.some(id=> id.toString() === user._id.toString()); %>
                         <button class="<%= isEnrolled ? 'enrolled' : 'enrol-now' %>"
                           onclick="Enroll(this, '<%= activity._id %>')">
-                          <%= isEnrolled ? 'Enrolled' : 'Enrol Now' %>
+                          <%= isEnrolled ? 'Enrolled' : 'Enroll Now' %>
                         </button>
                         <% } %>
 

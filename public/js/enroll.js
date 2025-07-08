@@ -27,7 +27,7 @@ try {
     button.classList.add('enrolled');
     enrolledElement.innerText = parseInt(enrolledElement.innerText) + 1;
   } else {
-    button.innerText = 'Enrol Now';
+    button.innerText = 'Enroll Now';
     button.classList.remove('enrolled');
     button.classList.add('enrol-now');
     enrolledElement.innerText = parseInt(enrolledElement.innerText) - 1;

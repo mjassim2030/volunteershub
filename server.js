@@ -45,7 +45,7 @@ app.get("/", async (req, res) => {
 
   const userPoints = {};
 
-  // Loop through activities and add points to each enrolled user
+  // Loop through activities and add points of each enrolled user
   activities.forEach(activity => {
     activity.enrolled.forEach(userId => {
       const id = userId.toString();
