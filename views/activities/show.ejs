@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth Application</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <%- include('../partials/_navbar.ejs') %>
+    <%- include('../partials/_breadcrumbs.ejs') %>
+
+      <main>
+
+        <section>
+          <div class="container">
+            <h2>
+              <%= activity.title %>
+            </h2>
+            <div class="subContainer">
+              <div class="leftSection">
+                <img class="activityImage" src="<%= activity.image || 'https://picsum.photos/200/300' %>"
+                  alt="Activity Image" />
+                <p>Start Date: <%= activity.startDate.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' ,
+                    day: 'numeric' }) %>
+                </p>
+
+                <p>End Date: <%= activity.endDate.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' ,
+                    day: 'numeric' }) %>
+                </p>
+
+                <p>Completion Points: <%= activity.points %>
+                </p>
+
+                <p>Enrollment: <%= activity.enrolled.length %> Volunteers</p>
+
+                <p>Owner: <%= activity.owner.username %></p>
+
+              </div>
+              <div class="rightSection">
+                <p>
+                  <%= activity.description %>
+                </p>
+              </div>
+            </div>
+
+            <div class="buttonsContainer">
+
+              <% if(userEnrolled) { %>
+                <form action="/activities/<%= activity._id %>/enrolledBy/<%= user._id %>?_method=DELETE" method="POST">
+                  <button type="submit">Enrolled</button>
+                </form>
+                <% } else { %>
+                  <form action="/activities/<%= activity._id %>/enrolledBy/<%= user._id %>" method="POST">
+                    <button type="submit">Enroll Now</button>
+                  </form>
+                  <% } %>
+
+                    <% if (activity.owner._id.equals(user._id)) { %>
+                      <form action="/activities/<%= activity._id %>/edit" method="GET">
+                        <button type="submit">Edit this Activity</button>
+                      </form>
+
+                      <form action="/activities/<%= activity._id %>?_method=DELETE" method="POST">
+                        <button type="submit">Delete this Activity</button>
+                      </form>
+                      <% } else { %>
+                        <p>You don't own this, <%= activity.owner.username %> does!</p>
+                        <% } %>`
+
+            </div>
+
+          </div>
+
+
+
+        </section>
+
+
+      </main>
+
+      <%- include('../partials/_footer.ejs') %>
+
+</body>
+
+</html>

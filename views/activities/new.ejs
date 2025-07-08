@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join Now</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <%- include('../partials/_navbar.ejs') %>
+  <%- include('../partials/_breadcrumbs.ejs') %>
+
+    <div class="signinContainer">
+      <div class="loginContainer">
+        <div class="loginHeader">New Activity</div>
+        <form action="/activities" method="POST">
+          <input type="text" placeholder="Title" name="title" id="title" required />
+          <input type="date" name="startDate" id="startDate" required />
+          <input type="date" name="endDate" id="endDate" required />
+          <input type="number" placeholder="Points" name="points" id="points" required />
+          <input type="textarea" placeholder="Description" name="description" id="description" />
+          <button type="submit">Add</button>
+        </form>
+      </div>
+    </div>
+
+          <%- include('../partials/_footer.ejs') %>
+
+</body>
+
+</html>
+  

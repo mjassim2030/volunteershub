@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join Now</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <%- include('../partials/_navbar.ejs') %>
+  <%- include('../partials/_breadcrumbs.ejs') %>
+
+    <div class="signinContainer">
+      <div class="loginContainer">
+        <div class="loginHeader">Join Now</div>
+        <form action="/auth/sign-up" method="POST">
+          <input type="text" placeholder="Username" name="username" id="username" required />
+          <input type="password" placeholder="Password" name="password" id="password" required />
+          <input type="password" placeholder="Confirm Password" name="confirmPassword" id="confirmPassword" required />
+          <button type="submit">Join</button>
+          <div class="register-link">
+            Already registered? <a href="/auth/sign-in">Sign In</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+          <%- include('../partials/_footer.ejs') %>
+
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+<div class="breadcrumbs">
+  <span><a href="/">Home</a></span>
+  <% breadcrumbs.forEach(crumb => { %>
+    >
+    <% if (crumb.isLast || crumb.name === "auth") { %>
+      <span><%= crumb.name %></span>
+    <% } else { %>
+      <a href="<%= crumb.url %>"><%= crumb.name %></a>
+    <% } %>
+  <% }); %>
+</div>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit <%= activity.title %>
+  </title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <%- include('../partials/_navbar.ejs') %>
+    <%- include('../partials/_breadcrumbs.ejs') %>
+
+      <h1>Edit a Activity!</h1>
+      <form action="/activities/<%= activity._id %>?_method=PUT" method="POST">
+        <label for="title">Activity Title:</label>
+        <input type="text" name="title" id="title" value="<%= activity.title %>" />
+        <br>
+
+        <label for="startDate">Start Date:</label>
+        <input type="date" name="startDate" id="startDate" value="<%= activity.startDate.toISOString().substring(0, 10) %>" />
+        <br>
+        <label for="endDate">End Date:</label>
+        <input type="date" name="endDate" id="endDate" value="<%= activity.endDate.toISOString().substring(0, 10) %>" />
+        <br>
+
+        <label for="points">Completion Points:</label>
+        <input type="number" name="points" id="points" value="<%= activity.points %>" />
+        <br>
+
+        <label for="description">Description:</label>
+        <input type="textarea" name="description" id="description" value="<%= activity.description %>" />
+        <br>
+
+        <button type="submit">Update Activity</button>
+      </form>
+</body>
+
+</html>

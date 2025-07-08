@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth Application</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <%- include('../partials/_navbar.ejs') %>
+  <%- include('../partials/_breadcrumbs.ejs') %>
+
+    <main>
+      <h1 class="title">My Activities</h1>
+
+      <section>
+        <div class="grid-container">
+          <% activities.forEach(activity=> { %>
+
+
+            <div class="card">
+              <img src="<%= activity.image || 'https://picsum.photos/200/300' %>" alt="Activity Image" />
+              <div class="card-content">
+                <h2>
+                  <%= activity.title %>
+                </h2>
+                <p><strong>Start Date:</strong>
+                  <%= activity.startDate.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' ,
+                    day: 'numeric' }) %>
+                </p>
+                <p><strong>End Date:</strong>
+                  <%= activity.endDate.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' ,
+                    day: 'numeric' }) %>
+                </p>
+                <p><strong>No. of Enrolled:</strong>
+                  <%= activity.enrolled.length %>
+                </p>
+                <p><strong>Completion Points:</strong>
+                  <%= activity.points %> Points
+                </p>
+
+                                <div class="button">
+                  <br>
+                <% if (!user) { %>
+                  <button class="join">Join to Enroll</button>
+                  <% } else if (activity.status==='enrol-now' ) { %>
+                    <button class="enrol-now">Enrol Now</button>
+                    <% } else if (activity.status==='enrolled' ) { %>
+                      <button class="enrolled">Enrolled</button>
+                      <% } else if (activity.status==='expired' ) { %>
+                        <button class="expired">Expired</button>
+                        <% } %>
+
+                          <a href="/activities/<%= activity._id %>">View more details</a>
+                                </div>
+              </div>
+            </div>
+
+            <% }) %>
+
+              <a href="/activities/new">Add a new Activity</a>
+
+        </div>
+      </section>
+
+
+    </main>
+
+    <%- include('../partials/_footer.ejs') %>
+
+</body>
+
+</html>

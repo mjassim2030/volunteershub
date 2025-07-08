@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <%- include('../partials/_navbar.ejs') %>
+  <%- include('../partials/_breadcrumbs.ejs') %>
+
+    <div class="signinContainer">
+      <div class="loginContainer">
+        <div class="loginHeader">Sign In</div>
+        <form action="/auth/sign-in" method="POST">
+          <input type="text" placeholder="Username" name="username" id="username" required />
+          <input type="password" placeholder="Password" name="password" id="password" required />
+          <button type="submit">Sign In</button>
+          <div class="register-link">
+            Not yet registered? <a href="/auth/sign-up">Join Now</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+          <%- include('../partials/_footer.ejs') %>
+
+</body>
+
+</html>
