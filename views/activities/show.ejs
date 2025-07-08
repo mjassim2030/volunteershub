@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Auth Application</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <script defer src="/js/enroll.js"></script>
+
 </head>
 
 <body>
@@ -34,7 +36,7 @@
                 <p>Completion Points: <%= activity.points %>
                 </p>
 
-                <p>Enrollment: <%= activity.enrolled.length %> Volunteers</p>
+                <p>Enrollment: <span id="<%= activity._id %>"><%= activity.enrolled.length %></span> Volunteers</p>
 
                 <p>Owner: <%= activity.owner.username %></p>
 
@@ -48,15 +50,13 @@
 
             <div class="buttonsContainer">
 
-              <% if(userEnrolled) { %>
-                <form action="/activities/<%= activity._id %>/enrolledBy/<%= user._id %>?_method=DELETE" method="POST">
-                  <button type="submit">Enrolled</button>
-                </form>
-                <% } else { %>
-                  <form action="/activities/<%= activity._id %>/enrolledBy/<%= user._id %>" method="POST">
-                    <button type="submit">Enroll Now</button>
-                  </form>
-                  <% } %>
+                      <% const isEnrolled=activity.enrolled.some(id=> id.toString() === user._id.toString()); %>
+                        <div class="button" >
+                      <button class="<%= isEnrolled ? 'enrolled' : 'enrol-now' %>"
+                          onclick="Enroll(this, '<%= activity._id %>')">
+                          <%= isEnrolled ? 'Enrolled' : 'Enrol Now' %>
+                        </button>
+                        </div>
 
                     <% if (activity.owner._id.equals(user._id)) { %>
                       <form action="/activities/<%= activity._id %>/edit" method="GET">

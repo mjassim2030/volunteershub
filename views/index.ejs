@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Volunteers Hub</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <script defer src="/js/enroll.js"></script>
+
 </head>
 
 <body>
@@ -19,6 +21,8 @@
           <% activities.forEach(activity=> { %>
 
             <div class="card">
+                          <a href="/activities/<%= activity._id %>" class="card-link">
+
               <img src="<%= activity.image || 'https://picsum.photos/200/300' %>" alt="Activity Image" />
               <div class="card-content">
                 <h2>
@@ -33,31 +37,31 @@
                     }) %>
                 </p>
                 <p><strong>No. of Enrolled:</strong>
-                  <%= activity.enrolled.length %>
+                  <span id="<%= activity._id %>"><%= activity.enrolled.length %></span>
                 </p>
                 <p><strong>Completion Points:</strong>
                   <%= activity.points %> Points
                 </p>
-
+</a>
                 <div class="button">
                   <br>
-                <% if (!user) { %>
-                  <button class="join">Join to Enroll</button>
-                  <% } else { %>
+                  <% if (!user) { %>
+                    <button onclick="window.location.href='auth/sign-up'" class="join">Join to Enroll</button>
+                    <% } else { %>
+                      <% const isEnrolled=activity.enrolled.some(id=> id.toString() === user._id.toString()); %>
+                        <button class="<%= isEnrolled ? 'enrolled' : 'enrol-now' %>"
+                          onclick="Enroll(this, '<%= activity._id %>')">
+                          <%= isEnrolled ? 'Enrolled' : 'Enrol Now' %>
+                        </button>
+                        <% } %>
 
-                    <% if (activity.enrolled.some(id=> id.toString() === user._id.toString())) { %>
-                      <button class="enrolled">Enrolled</button>
-                      <% } else { %>
-
-                        <button class="enrol-now">Enrol Now</button>
-                        <% }%>
-                          <% }%>
-
-              </div>
+                </div>
 
               </div>
+               
             </div>
 
+           
             <% }) %>
 
         </div>

@@ -85,4 +85,24 @@ router.delete('/:activityId/enrolledBy/:userId', async (req, res) => {
   res.redirect(`/activities/${req.params.activityId}`);
 });
 
+router.post('/:activityId/enroll', async (req, res) => {
+  const activity = await Activity.findById(req.params.activityId);
+  const userId = req.session.user._id;
+  const index = activity.enrolled.findIndex(id => id.toString() === userId.toString());
+
+  let enrolled;
+
+  if (index === -1) {
+    activity.enrolled.push(userId);
+    enrolled = true;
+  } else {
+    activity.enrolled.splice(index, 1);
+    enrolled = false;
+  }
+
+  await activity.save();
+  res.status(200).json({ success: true, enrolled });
+});
+
+
 module.exports = router;
