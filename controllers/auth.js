@@ -23,7 +23,7 @@ router.post("/sign-up", async (req, res )=>{
 
   // Create a User
   const user = await User.create(req.body);
-  res.render('messages/message.ejs', {title: "Welcome", message: `Thanks for signing up ${user.username}`}); 
+  res.render('messages/message.ejs', {title: "Welcome", message: `Thanks for signing up ${user.username}`, url: '/'}); 
 
 });
 

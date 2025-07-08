@@ -20,12 +20,13 @@ footer h5 {
 
 nav {
   display: flex;
-  background-color: #008080;
+  background: linear-gradient(135deg, #006666, #00f2fe);
   color: white;
   margin: 0;
   padding: 1rem;
   justify-content: space-between;
   align-items: center;
+  height: 10vh;
 }
 
 .breadcrumbs {
@@ -78,6 +79,7 @@ section {
   margin-bottom: 2rem;
   background-color: #008080;
   padding: 10px;
+  margin: 0;
 }
 
 .grid-container {
@@ -222,7 +224,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  height: 60vh;
 }
 
 .loginContainer,
@@ -269,6 +271,7 @@ input {
 
 button:hover {
   background-color: #006666;
+color: white;
 }
 
 .register-link {
@@ -308,3 +311,70 @@ textarea {
   min-height: 100px;
 }
 
+.banner {
+  position: relative;
+  background-color: #006666;
+  color: white;
+  padding: 2rem;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  height: 10vh;
+}
+
+.banner-text {
+  max-width: 60%;
+  font-size: 1.5rem;
+  left: -420px;
+  line-height: 1.4;
+  animation: slideInRight 2s ease-in-out forwards;
+  position: absolute;
+}
+
+.wavingHands {
+  position: absolute;
+  right: -320px;
+  bottom: -100px;
+  width: 300px;
+  height: auto;
+  animation: slideIn 1s ease-out forwards, wave 2s ease-in-out infinite;
+  animation-delay: 0s, 1s;
+  transform-origin: bottom right;
+  z-index: 10;
+}
+
+@keyframes slideInRight {
+  0% {
+    left: -420px;
+    opacity: 0;
+  }
+  100% {
+    left: 40px;
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    right: -320px;
+    transform: rotate(-8deg);
+  }
+  100% {
+    right: 20px;
+    transform: rotate(-8deg);
+  }
+}
+
+@keyframes wave {
+  0% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+  100% {
+    transform: rotate(-8deg);
+  }
+}
