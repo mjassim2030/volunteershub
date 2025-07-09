@@ -26,7 +26,7 @@
               <div class="card">
                 <a href="/activities/<%= activity._id %>" class="card-link">
 
-                  <img src="<%= activity.image || 'https://picsum.photos/200/300' %>" alt="Activity Image" />
+                  <img src="<%= activity.imagePath || 'https://picsum.photos/200/300' %>" alt="Activity Image" />
                   <div class="card-content">
                     <h2>
                       <%= activity.title %>

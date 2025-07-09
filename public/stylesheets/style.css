@@ -224,7 +224,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60vh;
+  height: 80vh;
 }
 
 .loginContainer,
@@ -377,4 +377,59 @@ textarea {
   100% {
     transform: rotate(-8deg);
   }
+}
+
+
+.error-message {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: -5px;
+  margin-bottom: 10px;
+}
+.alert-slide {
+  position: fixed;
+  top: -60px;
+  left: 0;
+  width: 100%;
+  background-color: #f44336;
+  color: white;
+  text-align: center;
+  padding: 12px 0;
+  transition: top 0.4s ease;
+  z-index: 1000;
+}
+.alert-slide.show {
+  top: 0;
+}
+
+
+.popup {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  max-width: 300px;
+  display: none;
+}
+
+.popup-content {
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.popup.show {
+  display: block;
 }

@@ -20,6 +20,9 @@ const activitySchema = new mongoose.Schema({
   description:{
     type: String
   },
+  imagePath: {
+    type: String
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

@@ -2,26 +2,32 @@ const router = require('express').Router()
 
 const Activity = require('../models/activity');
 
-// API's/ Routes/ Main Functionality
-
+// GET the activities index page
 router.get('/', async (req, res) => {
   const activities = await Activity.find().populate('owner');
-  res.render('activities/index.ejs', { activities});
+  res.render('activities/index.ejs', { activities });
 });
 
+// CRUD's Routes
+
+// GET Create New Activity page
 router.get('/new', async (req, res) => {
   res.render('activities/new.ejs');
 });
 
+// 'C' POST Create New Activity 
 router.post('/', async (req, res) => {
   req.body.owner = req.session.user._id;
   await Activity.create(req.body);
   res.redirect('/activities');
 });
 
+// 'R' GET Specific Activity
 router.get("/:activityId", async (req, res) => {
-  const activity = await Activity.findById(req.params.activityId).populate('owner');
+  // Populate both enrolled users and owner
+  const activity = await Activity.findById(req.params.activityId).populate('enrolled').populate('owner');
 
+  // Check if current user enrolled (by mean its id listed in the enrolled list)
   const userEnrolled = activity.enrolled.some((user) =>
     user.equals(req.session.user._id)
   );
@@ -29,21 +35,7 @@ router.get("/:activityId", async (req, res) => {
   res.render('activities/show.ejs', { activity, userEnrolled });
 });
 
-router.delete('/:activityId', async (req, res) => {
-  try {
-    const activity = await Activity.findById(req.params.activityId);
-    if (activity.owner.equals(req.session.user._id)) {
-      await activity.deleteOne();
-      res.redirect('/activities');
-    } else {
-      res.send("You don't have permission to do that.");
-    }
-  } catch (error) {
-    console.error(error);
-    res.redirect('/');
-  }
-});
-
+// GET Uppdate Activity page
 router.get('/:activityId/edit', async (req, res) => {
   try {
     const currentActivity = await Activity.findById(req.params.activityId);
@@ -56,14 +48,15 @@ router.get('/:activityId/edit', async (req, res) => {
   }
 });
 
+// 'U' Update Activity
 router.put('/:activityId', async (req, res) => {
   try {
     const currentActivity = await Activity.findById(req.params.activityId);
     if (currentActivity.owner.equals(req.session.user._id)) {
       await currentActivity.updateOne(req.body);
-      res.redirect('/activities');
+      res.render('messages/message.ejs', { title: "Edit Activity", message: `${currentActivity.title} has been Updated!`, url: `/activities/${req.params.activityId}` });
     } else {
-      res.send("You don't have permission to do that.");
+      res.render('messages/message.ejs', { title: "Edit Activity", message: `You don't have permission to do that.`, url: `/activities/${req.params.activityId}` });
     }
   } catch (error) {
     console.log(error);
@@ -71,18 +64,20 @@ router.put('/:activityId', async (req, res) => {
   }
 });
 
-router.post('/:activityId/enrolledBy/:userId', async (req, res) => {
-  await Activity.findByIdAndUpdate(req.params.activityId, {
-    $push: { enrolled: req.params.userId }
-  });
-  res.redirect(`/activities/${req.params.activityId}`);
-});
-
-router.delete('/:activityId/enrolledBy/:userId', async (req, res) => {
-  await Activity.findByIdAndUpdate(req.params.activityId, {
-    $pull: { enrolled: req.params.userId }
-  });
-  res.redirect(`/activities/${req.params.activityId}`);
+// 'D' DELETE Activity
+router.delete('/:activityId', async (req, res) => {
+  try {
+    const activity = await Activity.findById(req.params.activityId);
+    if (activity.owner.equals(req.session.user._id)) {
+      await activity.deleteOne();
+      res.render('messages/message.ejs', { title: "Delete Activity", message: `${activity.title} has been deleted!`, url: `/activities` });
+    } else {
+      res.render('messages/message.ejs', { title: "Delete Activity", message: `You don't have permission to do that.`, url: `/activities/${req.params.activityId}` });
+    }
+  } catch (error) {
+    console.error(error);
+    res.redirect('/');
+  }
 });
 
 router.post('/:activityId/enroll', async (req, res) => {
@@ -103,6 +98,5 @@ router.post('/:activityId/enroll', async (req, res) => {
   await activity.save();
   res.status(200).json({ success: true, enrolled });
 });
-
 
 module.exports = router;
