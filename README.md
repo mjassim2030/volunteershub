@@ -85,6 +85,9 @@ A web-based volunteers platform designed to facilitate activity creation, volunt
 - Enhance the breadcrumb to efficiently show the Activity Name (Some screens shows the id)
 - Show volunteers photo along with the user name in the activity details and in the Top Volunteers
 
+## Logo Inspiration
+The "Volunteers Hub" logo symbolizes the union of individual effort (hand) and community connection or hub (network), forming a collaborative spirit (joined hands). This unity is reflected in the elegant typography, capturing the heart of collective volunteer action.
+![Logo Inspiration](./public/images/logoInspiration.jpg)
 
 ## 📷 Screenshots
 ![Screenshot 1](./public/images/screenshots/screenshot.png)
