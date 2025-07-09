@@ -433,3 +433,16 @@ textarea {
 .popup.show {
   display: block;
 }
+
+.no-activities {
+  text-align: center;
+  margin: 60px auto;
+  font-size: 1.5rem;
+  color: #00666696;
+  width: 100%;
+}
+.no-activities h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #00666696;
+}

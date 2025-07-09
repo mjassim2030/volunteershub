@@ -8,7 +8,7 @@
 
     <% if (user) { %>
       <a href="/activities/new">➕ New Activity</a>
-      <a href="/activities">🗂️ <%= user.username %>'s Activities</a>
+      <a href="/activities/my_activities">🗂️ <%= user.username %>'s Activities</a>
       <a href="/auth/sign-out">🚪 Sign out</a>
       <% } else { %>
         <a href="/auth/sign-up">Sign up</a>

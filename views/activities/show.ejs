@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auth Application</title>
+  <title>Volunteers Hub</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
   <script defer src="/js/enroll.js"></script>
 
@@ -29,36 +29,37 @@
                 <div class="leftSection">
                   <img class="activityImage" src="<%= activity.imagePath || 'https://picsum.photos/200/300' %>"
                     alt="Activity Image" />
-                  <p>Start Date: <%= activity.startDate.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' ,
-                      day: 'numeric' }) %>
-                  </p>
+                  <ul>
+                    <li>Start Date: <%= activity.startDate.toLocaleDateString('en-US', { year: 'numeric' ,
+                        month: 'short' , day: 'numeric' }) %>
+                    </li>
 
-                  <p>End Date: <%= activity.endDate.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' ,
-                      day: 'numeric' }) %>
-                  </p>
+                    <li>End Date: <%= activity.endDate.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' ,
+                        day: 'numeric' }) %>
+                    </li>
 
-                  <p>Completion Points: <%= activity.points %>
-                  </p>
+                    <li>Completion Points: <%= activity.points %>
+                    </li>
 
-                  <div id="popup-<%= activity._id %>" class="popup hidden">
-                    <span class="close-btn" data-activity-id="<%= activity._id %>">&times;</span>
+                    <div id="popup-<%= activity._id %>" class="popup hidden">
+                      <span class="close-btn" data-activity-id="<%= activity._id %>">&times;</span>
 
-                    <div class="popup-content">
-                      <h3>Enrolled Volunteers</h3>
-                      <ul>
-                        <% activity.enrolled.forEach(volunteer=> { %>
-                          <li>
-                            <%= volunteer.username %>
-                          </li>
-                          <% }) %>
-                      </ul>
+                      <div class="popup-content">
+                        <h3>Enrolled Volunteers</h3>
+                        <ul>
+                          <% activity.enrolled.forEach(volunteer=> { %>
+                            <li>
+                              <%= volunteer.username %>
+                            </li>
+                            <% }) %>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
 
 
-                  <p>Owner: <%= activity.owner.username %>
-                  </p>
-
+                    <li>Owner: <%= activity.owner.username %>
+                    </li>
+                  </ul>
                 </div>
                 <div class="rightSection">
                   <p>
@@ -69,7 +70,8 @@
 
               <div class="buttonsContainer">
 
-                <% const isEnrolled=activity.enrolled.some(enrolledUser=> enrolledUser._id.toString() === user._id.toString()); %>
+                <% const isEnrolled=activity.enrolled.some(enrolledUser=> enrolledUser._id.toString() ===
+                  user._id.toString()); %>
                   <div class="button">
                     <button class="<%= isEnrolled ? 'enrolled' : 'enrol-now' %>"
                       onclick="Enroll(this, '<%= activity._id %>')">

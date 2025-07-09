@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auth Application</title>
+  <title>Volunteers Hub</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
   <script defer src="/js/enroll.js"></script>
 
@@ -16,58 +16,47 @@
 
       <main>
         <h1 class="title">My Activities</h1>
-    <%- include('../partials/_breadcrumbs.ejs') %>
+        <%- include('../partials/_breadcrumbs.ejs') %>
 
-        <section>
-          <div class="grid-container">
-            <% activities.forEach(activity=> { %>
-
-
-              <div class="card">
-                <a href="/activities/<%= activity._id %>" class="card-link">
-
-                  <img src="<%= activity.imagePath || 'https://picsum.photos/200/300' %>" alt="Activity Image" />
-                  <div class="card-content">
-                    <h2>
-                      <%= activity.title %>
-                    </h2>
-                    <p><strong>Start Date:</strong>
-                      <%= activity.startDate.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' ,
-                        day: 'numeric' }) %>
-                    </p>
-                    <p><strong>End Date:</strong>
-                      <%= activity.endDate.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' ,
-                        day: 'numeric' }) %>
-                    </p>
-                    <p><strong>No. of Enrolled:</strong>
-                      <%= activity.enrolled.length %>
-                    </p>
-                    <p><strong>Completion Points:</strong>
-                      <%= activity.points %> Points
-                    </p>
-                </a>
-                <div class="button">
-                  <br>
-                  <% if (!user) { %>
-                    <button onclick="window.location.href='auth/sign-up'" class="join">Join to Enroll</button>
-                    <% } else { %>
-                      <% const isEnrolled=activity.enrolled.some(id=> id.toString() === user._id.toString()); %>
-                        <button class="<%= isEnrolled ? 'enrolled' : 'enrol-now' %>"
-                          onclick="Enroll(this, '<%= activity._id %>')">
-                          <%= isEnrolled ? 'Enrolled' : 'Enroll Now' %>
-                        </button>
-                        <% } %>
-
-                </div>
-
-
+          <section>
+            <% if (activities.length===0) { %>
+              <div class="no-activities">
+                <h2>🚀 You have not enrolled in or created any activities yet.</h2>
+                <p>Explore the platform and start contributing to your community!</p>
               </div>
-          </div>
+              <% } else { %>
+                <div class="grid-container">
 
-          <% }) %>
-
+                  <% activities.forEach(activity=> { %>
+                    <div class="card">
+                      <a href="/activities/<%= activity._id %>" class="card-link">
+                        <img src="<%= activity.imagePath || 'https://picsum.photos/200/300' %>" alt="Activity Image" />
+                        <div class="card-content">
+                          <h2>
+                            <%= activity.title %>
+                          </h2>
+                          <p><strong>Start Date:</strong>
+                            <%= activity.startDate.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' ,
+                              day: 'numeric' }) %>
+                          </p>
+                          <p><strong>End Date:</strong>
+                            <%= activity.endDate.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' ,
+                              day: 'numeric' }) %>
+                          </p>
+                          <p><strong>No. of Enrolled:</strong>
+                            <%= activity.enrolled.length %>
+                          </p>
+                          <p><strong>Completion Points:</strong>
+                            <%= activity.points %> Points
+                          </p>
+                        </div>
+                      </a>
+                    </div>
+                    <% }) %>
                 </div>
-        </section>
+
+                <% } %>
+          </section>
 
 
       </main>

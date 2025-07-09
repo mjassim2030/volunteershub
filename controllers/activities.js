@@ -8,6 +8,22 @@ router.get('/', async (req, res) => {
   res.render('activities/index.ejs', { activities });
 });
 
+router.get('/my_activities', async (req, res) => {
+  const userId = req.session.user._id;
+
+  const activities = await Activity.find({
+    $or: [
+      { enrolled: userId },
+      { owner: userId }
+    ]
+  })
+    .populate('owner')
+    .populate('enrolled');
+
+  res.render('activities/index.ejs', { activities });
+});
+
+
 // CRUD's Routes
 
 // GET Create New Activity page
