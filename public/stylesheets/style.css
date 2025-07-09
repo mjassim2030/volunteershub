@@ -114,7 +114,6 @@ section {
   flex-direction: column;
   justify-content: space-between;
   /* pushes content and button apart */
-  height: 100%;
   /* ensures all cards are same height */
   padding: 1rem;
   border-radius: 12px;
