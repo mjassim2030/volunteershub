@@ -33,7 +33,9 @@
     counterElement.innerText = `You will be redirected within... ${counter}`;
     counter--;
 
-    if (counter < 0) {
+    if (counter <= 0) {
+      clearInterval(interval); // Stop the timer
+      counter = 0;
       window.location.href = '<%= url %>';
     }
   }, 1000);
